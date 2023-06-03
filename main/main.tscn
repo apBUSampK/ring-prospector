@@ -1,6 +1,47 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsgflesplwvgh"]
+[gd_scene load_steps=7 format=3 uid="uid://bsgflesplwvgh"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_lsmxq"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uv3y3"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r0t7y"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tiqmw"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_leth5"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fjib0"]
+normal = Vector2(0, 1)
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_lsmxq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_uv3y3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 1080)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_r0t7y")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1920, 1080)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_tiqmw")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_leth5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1920, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_fjib0")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)

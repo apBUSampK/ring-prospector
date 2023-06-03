@@ -8,10 +8,11 @@ func init(v: int, r0, dr, dphi):
 	var phi_step = 2 * PI / v
 	dphi *= phi_step
 	var poly_array = PackedVector2Array()
+	var r = r0 + randfn(0, dr)
 	for i in range(v):
 		var phi = phi_step * i + randf_range(-dphi, dphi)
-		var r = r0 + randfn(0, dr)
 		poly_array.append(Vector2(r * cos(phi), r * sin(phi)))
+		r += randfn(0, dr)
 	var cpolygon = CollisionPolygon2D.new()
 	var polygon = Polygon2D.new()
 	polygon.set_polygon(poly_array)
@@ -19,6 +20,6 @@ func init(v: int, r0, dr, dphi):
 	add_child(polygon)
 	add_child(cpolygon)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	if(Input.is_key_pressed(KEY_ESCAPE)):
+		get_tree().free()
