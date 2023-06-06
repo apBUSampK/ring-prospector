@@ -51,7 +51,7 @@ func _bulge_gen(args: Array) -> PackedVector2Array:
 	var incl_size = args[6] * size / 2
 	var bulk_dr = bulk_r / incl_size
 	var poly_array = PackedVector2Array()
-	var offset = Vector2(bulk_r * cos(size / 2 * phi_step) / 2, bulk_r * sin(size / 2 * phi_step) / 2)
+	var offset = Vector2(cos(size / 2 * phi_step), sin(size / 2 * phi_step)) * bulk_r * size / v / 2
 	for i in range(v):
 		var r_delta = randfn(0, dr)
 		var phi_delta = phi_step + randf_range(-dphi, dphi)
@@ -65,5 +65,5 @@ func _bulge_gen(args: Array) -> PackedVector2Array:
 			if i >= size - incl_size:
 				r += (size - i - incl_size) * bulk_dr
 		poly_array.append(Vector2(r * cos(phi), r * sin(phi)) - offset)
-	set_mass((r0**2 + (r0 + bulk_r / 2)**2)**1.5)
+	set_mass((r0**2 + (r0 + bulk_r * size / v / 2)**2)**1.5)
 	return poly_array
