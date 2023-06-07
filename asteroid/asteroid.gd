@@ -1,13 +1,11 @@
 class_name Asteroid extends RigidBody2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
 enum GenType{
 	SIMPLE,
 	BULGE
 }
+
+var material_rock = preload("res://asteroid/rock.tres")
 
 func _init(type: GenType, args: Array) -> void:
 	var poly_array = PackedVector2Array()	
@@ -22,6 +20,7 @@ func _init(type: GenType, args: Array) -> void:
 	cpolygon.set_polygon(poly_array)
 	add_child(polygon)
 	add_child(cpolygon)
+	set_physics_material_override(material_rock)
 	
 func _simple_gen(args: Array) -> PackedVector2Array:
 	var v = args[0]
