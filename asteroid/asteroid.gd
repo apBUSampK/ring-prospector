@@ -6,6 +6,7 @@ enum GenType{
 }
 
 var material_rock = preload("res://asteroid/rock.tres")
+var atlas = preload("res://asteroid/textures/1.png")
 
 func _init(type: GenType, args: Array) -> void:
 	var poly_array = PackedVector2Array()	
@@ -18,6 +19,8 @@ func _init(type: GenType, args: Array) -> void:
 	var polygon = Polygon2D.new()
 	polygon.set_polygon(poly_array)
 	cpolygon.set_polygon(poly_array)
+	polygon.set_texture(atlas)
+	polygon.set_texture_offset(Vector2(1000, 1000))
 	add_child(polygon)
 	add_child(cpolygon)
 	set_physics_material_override(material_rock)
