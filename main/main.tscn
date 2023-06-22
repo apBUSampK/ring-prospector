@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsgflesplwvgh"]
+[gd_scene load_steps=11 format=3 uid="uid://bsgflesplwvgh"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_lsmxq"]
 [ext_resource type="Script" path="res://main/camera.gd" id="2_0wimt"]
 [ext_resource type="Script" path="res://main/fps_label.gd" id="3_ygd2g"]
+[ext_resource type="Texture2D" uid="uid://bbw1g5mykoa00" path="res://textures/bg_albedo.png" id="4_pgl5n"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uv3y3"]
 friction = 0.0
@@ -52,11 +53,11 @@ rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_fjib0")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="StaticBody2D"]
 position = Vector2(960, 540)
 script = ExtResource("2_0wimt")
 
-[node name="Label" type="Label" parent="Camera2D"]
+[node name="Label" type="Label" parent="StaticBody2D/Camera2D"]
 z_index = 1
 offset_left = -960.0
 offset_top = -540.0
@@ -64,3 +65,7 @@ offset_right = -959.0
 offset_bottom = -517.0
 label_settings = SubResource("LabelSettings_sq7mk")
 script = ExtResource("3_ygd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/Camera2D"]
+z_index = -1
+texture = ExtResource("4_pgl5n")
