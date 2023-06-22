@@ -66,6 +66,12 @@ offset_bottom = -517.0
 label_settings = SubResource("LabelSettings_sq7mk")
 script = ExtResource("3_ygd2g")
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/Camera2D"]
-z_index = -1
+[node name="ParallaxBackground" type="ParallaxBackground" parent="StaticBody2D/Camera2D"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="StaticBody2D/Camera2D/ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(2048, 2048)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/Camera2D/ParallaxBackground/ParallaxLayer"]
+position = Vector2(960, 540)
 texture = ExtResource("4_pgl5n")
