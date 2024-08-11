@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://31plj04sq0j5"]
+
+[ext_resource type="Script" path="res://main/Ship.gd" id="1_jf87p"]
+[ext_resource type="Texture2D" uid="uid://cbfxmndjljjg0" path="res://icon.svg" id="3_lilsg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uo1wn"]
+bounce = 0.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8bfya"]
+size = Vector2(128, 254)
+
+[node name="Ship" type="RigidBody2D"]
+position = Vector2(960, 540)
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_uo1wn")
+script = ExtResource("1_jf87p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 2)
+texture = ExtResource("3_lilsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8bfya")

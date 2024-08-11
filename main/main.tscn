@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsgflesplwvgh"]
+[gd_scene load_steps=13 format=3 uid="uid://bsgflesplwvgh"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_lsmxq"]
 [ext_resource type="Script" path="res://main/camera.gd" id="2_0wimt"]
 [ext_resource type="Script" path="res://main/fps_label.gd" id="3_ygd2g"]
+[ext_resource type="PackedScene" uid="uid://31plj04sq0j5" path="res://main/ship.tscn" id="4_bcnf6"]
 [ext_resource type="Texture2D" uid="uid://bbw1g5mykoa00" path="res://textures/bg_albedo.png" id="4_pgl5n"]
+[ext_resource type="Script" path="res://main/ShipCamera.gd" id="5_g005y"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uv3y3"]
 friction = 0.0
@@ -53,11 +55,11 @@ rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_fjib0")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="Camera2D" type="Camera2D" parent="StaticBody2D"]
+[node name="FreeCamera" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("2_0wimt")
 
-[node name="Label" type="Label" parent="StaticBody2D/Camera2D"]
+[node name="Label" type="Label" parent="FreeCamera"]
 z_index = 1
 offset_left = -960.0
 offset_top = -540.0
@@ -66,12 +68,29 @@ offset_bottom = -517.0
 label_settings = SubResource("LabelSettings_sq7mk")
 script = ExtResource("3_ygd2g")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="StaticBody2D/Camera2D"]
+[node name="Ship" parent="." instance=ExtResource("4_bcnf6")]
+position = Vector2(1155, 662)
+mass = 20.0
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="StaticBody2D/Camera2D/ParallaxBackground"]
+[node name="ShipCamera" type="Camera2D" parent="."]
+process_callback = 0
+script = ExtResource("5_g005y")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ShipCamera"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ShipCamera/ParallaxBackground"]
 motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(2048, 2048)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/Camera2D/ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="ShipCamera/ParallaxBackground/ParallaxLayer"]
 position = Vector2(960, 540)
 texture = ExtResource("4_pgl5n")
+
+[node name="Label" type="Label" parent="ShipCamera"]
+z_index = 1
+offset_left = -960.0
+offset_top = -540.0
+offset_right = -959.0
+offset_bottom = -517.0
+label_settings = SubResource("LabelSettings_sq7mk")
+script = ExtResource("3_ygd2g")
