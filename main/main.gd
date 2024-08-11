@@ -3,7 +3,7 @@ extends Node2D
 var AsteroidFactory = preload("res://asteroid/rock_asteroid_factory.gd")
 @onready var cameras = [get_node("FreeCamera"), get_node("ShipCamera")]
 var cameraCount = 2
-var activeCamera = 0
+var activeCamera = 1
 
 
 # Called when the node enters the scene tree for the first time.

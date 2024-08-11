@@ -70,10 +70,9 @@ script = ExtResource("3_ygd2g")
 
 [node name="Ship" parent="." instance=ExtResource("4_bcnf6")]
 position = Vector2(1155, 662)
-mass = 20.0
 
 [node name="ShipCamera" type="Camera2D" parent="."]
-process_callback = 0
+position = Vector2(960, 540)
 script = ExtResource("5_g005y")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ShipCamera"]
