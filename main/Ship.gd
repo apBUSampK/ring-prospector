@@ -29,12 +29,10 @@ func _physics_process(_delta):
 		appliedForce += burn * heading
 	elif Input.is_action_pressed("Backward"):
 		appliedForce -= stabilizer * heading
-	apply_central_force(appliedForce)
+	
 	if Input.is_action_pressed("CW"):
-		apply_torque(torque)
 		turning = 1
 	if Input.is_action_pressed("CCW"):
-		apply_torque(-torque)
 		turning = -1
 	print("Velocity: ")
 	print(linear_velocity)
@@ -44,13 +42,12 @@ func _physics_process(_delta):
 	# Compensation part
 	# First address if the linear velocity limit has been exceeded (or no input):
 	if linear_velocity.length() > velMax or appliedForce == Vector2.ZERO:
-		apply_central_force(-appliedForce)
 		apply_central_force(stabilizer * -linear_velocity.normalized())
 	else: # Now try to compensate for momentum orthogonal to appliedForce
-		apply_central_force(stabilizer * -linear_velocity.project(appliedForce.orthogonal()).normalized())
+		appliedForce += stabilizer * -linear_velocity.project(appliedForce.orthogonal()).normalized()
+		apply_central_force(appliedForce)
 	# Same for angular velocity
-	if abs(angular_velocity) > phiMax:
-		apply_torque(torque * -turning)
+	if abs(angular_velocity) > phiMax or not turning:
 		apply_torque(torque * -sign(angular_velocity))
-	elif not turning:
-		apply_torque(torque * -sign(angular_velocity))
+	else:
+		apply_torque(torque * turning)
