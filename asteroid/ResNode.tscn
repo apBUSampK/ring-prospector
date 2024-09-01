@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccowheagww30a"]
+
+[ext_resource type="Texture2D" uid="uid://boxjg3p82qwit" path="res://sprites/lump.png" id="1_0ba51"]
+[ext_resource type="PhysicsMaterial" uid="uid://7k0fkakcefri" path="res://asteroid/rock.tres" id="1_6uu63"]
+[ext_resource type="Script" path="res://asteroid/res_node.gd" id="2_r4duu"]
+
+[node name="ResNode" type="RigidBody2D"]
+input_pickable = true
+mass = 50.0
+physics_material_override = ExtResource("1_6uu63")
+script = ExtResource("2_r4duu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(30, -18)
+texture = ExtResource("1_0ba51")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(30, -18)
+polygon = PackedVector2Array(-30, 18, -26, -1, -15, -11, -3, -13, 2, -3, 19, 0, 30, 18)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

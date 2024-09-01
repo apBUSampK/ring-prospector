@@ -6,38 +6,32 @@ extends RigidBody2D
 @export var stabilizer = 1e6
 @export var velMax = 500
 
-@onready var lparticle = $LeftEngineFlames
-@onready var rpaticle = $RightEngineFlames
+@onready var lParticle = $LeftEngineFlames
+@onready var rParticle = $RightEngineFlames
+@onready var cdTimer = $FireCd
+
+const LaserRound = preload("res://actors/LaserRound.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	var heading = Vector2(0, -1).rotated(rotation)
+	var heading = Vector2.UP.rotated(rotation)
 	var appliedForce = Vector2.ZERO
 	var turning = 0
 	
-	lparticle.emitting = false
-	rpaticle.emitting = false
+	lParticle.emitting = false
+	rParticle.emitting = false
 	
 	# Input part
-	if Input.is_action_pressed("Left"):
-		appliedForce += stabilizer * heading.rotated(-PI/2)
-	if Input.is_action_pressed("Right"):
-		appliedForce += stabilizer * heading.rotated(PI/2)
-	if Input.is_action_pressed("Forward") and not Input.is_action_pressed("Backward"):
-		lparticle.emitting = true
-		rpaticle.emitting = true
+	appliedForce += stabilizer * heading.rotated(PI/2) * Input.get_axis("Left", "Right")
+	var FBM = Input.get_axis("Backward", "Forward")
+	if FBM > 0:
+		lParticle.emitting = true
+		rParticle.emitting = true
 		appliedForce += burn * heading
-	elif Input.is_action_pressed("Backward"):
+	elif FBM < 0:
 		appliedForce -= stabilizer * heading
 	
-	if Input.is_action_pressed("CW"):
-		turning = 1
-	if Input.is_action_pressed("CCW"):
-		turning = -1
-	print("Velocity: ")
-	print(linear_velocity)
-	print("Position: ")
-	print(position)
+	turning = Input.get_axis("CCW", "CW")
 	
 	# Compensation part
 	# First address if the linear velocity limit has been exceeded (or no input):
@@ -51,3 +45,11 @@ func _physics_process(_delta):
 		apply_torque(torque * -sign(angular_velocity))
 	else:
 		apply_torque(torque * turning)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("Fire") and cdTimer.is_stopped():
+		cdTimer.start()
+		var laserRound = LaserRound.instantiate()
+		laserRound.set_rotation(rotation)
+		laserRound.set_global_position(position + Vector2(-59.0, -175.0).rotated(rotation))
+		get_parent().add_child(laserRound)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://31plj04sq0j5"]
 
-[ext_resource type="Script" path="res://main/Ship.gd" id="1_jf87p"]
+[ext_resource type="Script" path="res://actors/Ship.gd" id="1_jf87p"]
 [ext_resource type="Texture2D" uid="uid://cwfv6p2rscff7" path="res://sprites/ship.png" id="2_3qsoq"]
 [ext_resource type="Texture2D" uid="uid://ckinuqpkkk7ix" path="res://sprites/flames.png" id="3_vo1u0"]
 
@@ -55,3 +55,6 @@ position = Vector2(53, 126)
 process_material = SubResource("ParticleProcessMaterial_uo2vh")
 texture = ExtResource("3_vo1u0")
 lifetime = 0.5
+
+[node name="FireCd" type="Timer" parent="."]
+one_shot = true

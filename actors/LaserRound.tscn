@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bje8pjmt7lrn3"]
+
+[ext_resource type="Script" path="res://actors/laser_round.gd" id="1_cydbx"]
+[ext_resource type="Texture2D" uid="uid://xbiqtewmyjwk" path="res://sprites/laser.png" id="2_uxxoi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yg4kj"]
+radius = 4.0
+height = 74.0
+
+[node name="LaserRound" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_cydbx")
+speed = 5000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.375, -38)
+scale = Vector2(0.615, 0.632653)
+texture = ExtResource("2_uxxoi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -38)
+shape = SubResource("CapsuleShape2D_yg4kj")

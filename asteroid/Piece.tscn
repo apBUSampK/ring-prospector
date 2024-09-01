@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b31p2wr0v4l77"]
+
+[ext_resource type="Texture2D" uid="uid://jx8tayw8406s" path="res://sprites/piece.png" id="1_yl7jj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_61tnn"]
+radius = 4.0
+height = 12.0
+
+[node name="Piece" type="RigidBody2D"]
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_61tnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yl7jj")
